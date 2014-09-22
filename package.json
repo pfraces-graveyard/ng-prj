@@ -1,0 +1,28 @@
+{
+  "name": "seed-javascript",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "*",
+    "matchdep": "*",
+    "temporary": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-ng-annotate": "*",
+    "grunt-html2js": "*",
+    "grunt-contrib-compress": "*",
+    "grunt-karma": "*",
+    "grunt-freddie": "*",
+    "karma-junit-reporter": "*",
+    "karma-coverage": "*",
+    "karma-jasmine": "*",
+    "karma-phantomjs-launcher": "*"
+  }
+}

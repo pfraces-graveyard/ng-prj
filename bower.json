@@ -1,0 +1,13 @@
+{
+  "name": "seed-javascript",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "angular": "*",
+    "angular-bootstrap": "*",
+    "angular-ui-router": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "*"
+  }
+}
