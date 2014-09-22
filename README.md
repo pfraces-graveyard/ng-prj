@@ -1,3 +1,8 @@
+ng-prj
+======
+
+Build system for angular projects
+
 Tasks overview
 ==============
 
