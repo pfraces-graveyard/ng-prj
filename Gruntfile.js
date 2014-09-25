@@ -74,21 +74,21 @@ module.exports = function (grunt) {
       options: {
         sourceMap: true
       },
-      base: {
+      common: {
         options: {
-          sourceMapFilename: '<%= prj.css.build %>/base.css.map',
-          sourceMapURL: 'base.css.map'
+          sourceMapFilename: '<%= prj.css.build %>/common.css.map',
+          sourceMapURL: 'common.css.map'
         },
-        src: ['<%= prj.css.src %>/base.less'],
-        dest: '<%= prj.css.build %>/base.css'
+        src: ['<%= prj.css.src %>/oocss.common.less'],
+        dest: '<%= prj.css.build %>/common.css'
       },
-      theme: {
+      product: {
         options: {
-          sourceMapFilename: '<%= prj.css.build %>/theme.css.map',
-          sourceMapURL: 'theme.css.map'
+          sourceMapFilename: '<%= prj.css.build %>/product.css.map',
+          sourceMapURL: 'product.css.map'
         },
-        src: ['<%= prj.css.src %>/theme.less'],
-        dest: '<%= prj.css.build %>/theme.css'
+        src: ['<%= prj.css.src %>/oocss.products.less'],
+        dest: '<%= prj.css.build %>/product.css'
       },
       patch: {
         options: {
@@ -117,8 +117,8 @@ module.exports = function (grunt) {
     cssmin: {
       styles: {
         src: [
-          '<%= less.base.dest %>',
-          '<%= less.theme.dest %>',
+          '<%= less.common.dest %>',
+          '<%= less.product.dest %>',
           '<%= less.patch.dest %>'
         ],
         dest: '<%= prj.css.release %>/<%= pkg.name %>-<%= pkg.version %>.css'
