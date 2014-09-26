@@ -29,6 +29,10 @@ module.exports = function (grunt) {
         '<%= prj.vendor %>/angular-bootstrap/ui-bootstrap-tpls.min.js',
         '<%= prj.vendor %>/angular-ui-router/release/angular-ui-router.min.js'
       ],
+
+      cssDependencies: [
+      ],
+
       devDependencies: [
         '<%= prj.vendor %>/angular-mocks/angular-mocks.js'
       ],
@@ -126,16 +130,23 @@ module.exports = function (grunt) {
     },
 
     concat: {
-      scripts: {
+      srcScripts: {
         src: ['<%= prj.js.build %>/**/*.js'],
         dest: '<%= prj.js.release %>/<%= pkg.name %>-<%= pkg.version %>.js'
       },
-      all: {
+      scripts: {
         src: [
           '<%= prj.dependencies %>',
-          '<%= concat.scripts.dest %>'
+          '<%= concat.srcScripts.dest %>'
         ],
-        dest: '<%= concat.scripts.dest %>'
+        dest: '<%= concat.srcScripts.dest %>'
+      },
+      styles: {
+        src: [
+          '<%= prj.cssDependencies %>',
+          '<%= cssmin.styles.dest %>'
+        ],
+        dest: '<%= cssmin.styles.dest %>'
       }
     },
 
@@ -144,8 +155,8 @@ module.exports = function (grunt) {
         singleQuotes: true
       },
       sources: {
-        src: ['<%= concat.scripts.dest %>'],
-        dest: '<%= concat.scripts.dest %>'
+        src: ['<%= concat.srcScripts.dest %>'],
+        dest: '<%= concat.srcScripts.dest %>'
       }
     },
 
@@ -154,8 +165,8 @@ module.exports = function (grunt) {
         mangle: true
       },
       sources: {
-        src: ['<%= concat.scripts.dest %>'],
-        dest: '<%= concat.scripts.dest %>'
+        src: ['<%= concat.srcScripts.dest %>'],
+        dest: '<%= concat.srcScripts.dest %>'
       }
     },
 
@@ -176,16 +187,17 @@ module.exports = function (grunt) {
       build: {
         dir: '<%= prj.build %>',
         src: [
-          '<%= prj.dependencies %>',
-          '<%= concat.scripts.src %>',
+          '<%= prj.cssDependencies %>',
           '<%= cssmin.styles.src %>'
+          '<%= prj.dependencies %>',
+          '<%= concat.srcScripts.src %>'
         ]
       },
       release: {
         dir: '<%= prj.release %>',
         src: [
-          '<%= concat.all.dest %>',
-          '<%= cssmin.styles.dest %>'
+          '<%= concat.scripts.dest %>',
+          '<%= concat.styles.dest %>'
         ]
       }
     },
@@ -197,6 +209,10 @@ module.exports = function (grunt) {
       },
       build_dependencies: {
         src: ['<%= prj.dependencies %>'],
+        dest: '<%= prj.build %>/'
+      },
+      build_cssDependencies: {
+        src: ['<%= prj.cssDependencies %>'],
         dest: '<%= prj.build %>/'
       },
       build_assets: {
@@ -307,6 +323,7 @@ module.exports = function (grunt) {
     'less',
     'copy:build_scripts',
     'copy:build_dependencies',
+    'copy:build_cssDependencies',
     'copy:build_assets'
   ]);
 
@@ -331,10 +348,11 @@ module.exports = function (grunt) {
     'compile',
     'cssmin',
     'copy:release_assets',
-    'concat:scripts',
+    'concat:srcScripts',
     'ngAnnotate',
     'uglify',
-    'concat:all',
+    'concat:scripts',
+    'concat:styles',
     'index:release',
     'version',
     'compress'
