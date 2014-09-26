@@ -188,7 +188,7 @@ module.exports = function (grunt) {
         dir: '<%= prj.build %>',
         src: [
           '<%= prj.cssDependencies %>',
-          '<%= cssmin.styles.src %>'
+          '<%= cssmin.styles.src %>',
           '<%= prj.dependencies %>',
           '<%= concat.srcScripts.src %>'
         ]

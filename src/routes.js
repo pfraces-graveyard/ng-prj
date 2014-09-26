@@ -5,13 +5,22 @@ angular.module('routes', ['ui.router'])
   	$urlRouterProvider.otherwise('/home');
 
   	$stateProvider
-  	.state('root', {
+  	.state('body', {
   		abstract: true,
-    	templateUrl: 'views/root.html'
+    	templateUrl: 'layout/body.html'
   	})
+    .state('body.layout', {
+      abstract: true,
+      views: {
+        'header@body': { templateUrl: 'layout/header.html' },
+        'footer@body': { templateUrl: 'layout/footer.html' }
+      }
+    })
   	.state('home', {
-  		parent: 'root',
+  		parent: 'body.layout',
   		url: '/home',
-  		templateUrl: 'views/home.html'
+  		views: {
+        'view@body': { templateUrl: 'views/home.html' }
+      }
   	});
 });
