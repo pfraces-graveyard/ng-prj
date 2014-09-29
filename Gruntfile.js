@@ -25,7 +25,7 @@ module.exports = function (grunt) {
       vendor: 'bower_components',
 
       dependencies: [
-        '<%= prj.vendor %>/lodash/lodash.min.js',
+        '<%= prj.vendor %>/lodash/dist/lodash.min.js',
         '<%= prj.vendor %>/angular/angular.min.js',
         '<%= prj.vendor %>/angular-bootstrap/ui-bootstrap-tpls.min.js',
         '<%= prj.vendor %>/angular-ui-router/release/angular-ui-router.min.js'
