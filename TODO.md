@@ -17,7 +17,7 @@ ng-prj - TODO
 angular module dependencies
 ---------------------------
 
-*   define best prectices
+*   define best practices
 *   autogenerate file with dependencies
 *   how to autoload controllers, factories, services, filters, directives
     into the main app module?

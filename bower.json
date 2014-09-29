@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "lodash": "*",
     "angular": "*",
     "angular-bootstrap": "*",
     "angular-ui-router": "*"
