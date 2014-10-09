@@ -124,7 +124,8 @@ module.exports = function (grunt) {
         src: [
           '<%= less.common.dest %>',
           '<%= less.product.dest %>',
-          '<%= less.patch.dest %>'
+          '<%= less.patch.dest %>',
+          '<%= prj.css.src %>/**/*.css'
         ],
         dest: '<%= prj.css.release %>/<%= pkg.name %>-<%= pkg.version %>.css'
       }
