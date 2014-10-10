@@ -39,9 +39,14 @@ module.exports = function (grunt) {
       ],
 
       css: {
-        src: '<%= prj.src %>/less',
+        src: '<%= prj.src %>/css',
         build: '<%= prj.build %>/<%= prj.src %>/css',
         release: '<%= prj.release %>/css'
+      },
+
+      less: {
+        src: '<%= prj.src %>/less',
+        build: '<%= prj.css.build %>'
       },
 
       js: {
@@ -81,27 +86,27 @@ module.exports = function (grunt) {
       },
       common: {
         options: {
-          sourceMapFilename: '<%= prj.css.build %>/common.css.map',
+          sourceMapFilename: '<%= prj.less.build %>/common.css.map',
           sourceMapURL: 'common.css.map'
         },
-        src: ['<%= prj.css.src %>/oocss.common.less'],
-        dest: '<%= prj.css.build %>/common.css'
+        src: ['<%= prj.less.src %>/oocss.common.less'],
+        dest: '<%= prj.less.build %>/common.css'
       },
       product: {
         options: {
-          sourceMapFilename: '<%= prj.css.build %>/product.css.map',
+          sourceMapFilename: '<%= prj.less.build %>/product.css.map',
           sourceMapURL: 'product.css.map'
         },
-        src: ['<%= prj.css.src %>/oocss.products.less'],
-        dest: '<%= prj.css.build %>/product.css'
+        src: ['<%= prj.less.src %>/oocss.products.less'],
+        dest: '<%= prj.less.build %>/product.css'
       },
       patch: {
         options: {
-          sourceMapFilename: '<%= prj.css.build %>/patch.css.map',
+          sourceMapFilename: '<%= prj.less.build %>/patch.css.map',
           sourceMapURL: 'patch.css.map'
         },
-        src: ['<%= prj.css.src %>/patch.less'],
-        dest: '<%= prj.css.build %>/patch.css'
+        src: ['<%= prj.less.src %>/patch.less'],
+        dest: '<%= prj.less.build %>/patch.css'
       }
     },
 
@@ -125,7 +130,7 @@ module.exports = function (grunt) {
           '<%= less.common.dest %>',
           '<%= less.product.dest %>',
           '<%= less.patch.dest %>',
-          '<%= prj.css.src %>/**/*.css'
+          '<%= prj.css.build %>/**/*.css'
         ],
         dest: '<%= prj.css.release %>/<%= pkg.name %>-<%= pkg.version %>.css'
       }
@@ -205,16 +210,20 @@ module.exports = function (grunt) {
     },
 
     copy: {
+      build_css: {
+        src: ['<%= prj.css.src %>/**/*.css'],
+        dest: '<%= prj.css.build %>/'
+      },
+      build_cssDependencies: {
+        src: ['<%= prj.cssDependencies %>'],
+        dest: '<%= prj.build %>/'
+      },
       build_scripts: {
         src: ['<%= jshint.scripts.src %>'],
         dest: '<%= prj.build %>/'
       },
       build_dependencies: {
         src: ['<%= prj.dependencies %>'],
-        dest: '<%= prj.build %>/'
-      },
-      build_cssDependencies: {
-        src: ['<%= prj.cssDependencies %>'],
         dest: '<%= prj.build %>/'
       },
       build_assets: {
@@ -307,8 +316,12 @@ module.exports = function (grunt) {
         files: ['<%= html2js.partials.src %>'],
         tasks: ['html2js']
       },
+      css: {
+        files: ['<%= prj.css.src %>/**/*.css'],
+        tasks: ['copy:build_css']
+      },
       less: {
-        files: ['<%= prj.css.src %>/**/*.less'],
+        files: ['<%= prj.less.src %>/**/*.less'],
         tasks: ['less']
       },
       tests: {
@@ -323,6 +336,7 @@ module.exports = function (grunt) {
   grunt.registerTask('compile', [
     'html2js',
     'less',
+    'copy:build_css',
     'copy:build_scripts',
     'copy:build_dependencies',
     'copy:build_cssDependencies',
