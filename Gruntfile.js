@@ -73,7 +73,7 @@ module.exports = function (grunt) {
     html2js: {
       partials: {
         options: {
-          module: 'partials'
+          module: 'app.partials'
         },
         src: ['<%= prj.src %>/**/*.html'],
         dest: '<%= prj.js.build %>/partials.js'
