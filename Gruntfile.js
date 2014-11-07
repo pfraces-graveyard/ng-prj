@@ -300,33 +300,71 @@ module.exports = function (grunt) {
       }
     },
 
+    notify: {
+      scripts: {
+        options: {
+          message: 'scripts are ready'
+        }
+      },
+      assets: {
+        options: {
+          message: 'assets are ready'
+        }
+      },
+      partials: {
+        options: {
+          message: 'partials are ready'
+        }
+      },
+      css: {
+        options: {
+          message: 'css styles are ready'
+        }
+      },
+      less: {
+        options: {
+          message: 'less styles are ready'
+        }
+      },
+      tests: {
+        options: {
+          message: 'tests are ready'
+        }
+      }
+    },
+
     watch: {
       options: {
         livereload: true
       },
       scripts: {
         files: ['<%= jshint.scripts.src %>'],
-        tasks: ['jshint:scripts', 'karma:build', 'copy:build_scripts']
+        tasks: [
+          'jshint:scripts',
+          'karma:build',
+          'copy:build_scripts',
+          'notify:scripts'
+        ]
       },
       assets: {
         files: ['<%= prj.assets.src %>/**'],
-        tasks: ['copy:build_assets']
+        tasks: ['copy:build_assets', 'notify:assets']
       },
       partials: {
         files: ['<%= html2js.partials.src %>'],
-        tasks: ['html2js']
+        tasks: ['html2js', 'notify:partials']
       },
       css: {
         files: ['<%= prj.css.src %>/**/*.css'],
-        tasks: ['copy:build_css']
+        tasks: ['copy:build_css', 'notify:css']
       },
       less: {
         files: ['<%= prj.less.src %>/**/*.less'],
-        tasks: ['less']
+        tasks: ['less', 'notify:less']
       },
       tests: {
         files: ['<%= jshint.tests.src %>'],
-        tasks: ['jshint:tests', 'karma:build']
+        tasks: ['jshint:tests', 'karma:build', 'notify:tests']
       }
     }
   });
